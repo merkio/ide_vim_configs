@@ -1,0 +1,22 @@
+" sync Vim clipboard with OS clipboard
+set clipboard^=unnamed,unnamedplus
+
+" jump between angle brackets
+set matchpairs+=<:>
+
+" highlight search results
+set hlsearch
+
+" remove search highlights
+nnoremap <Esc> :nohlsearch<cr>
+
+" case-insensitive search
+set ignorecase
+
+" enable case-sensitive search when uppercased letter is present
+set smartcase
+
+" search while typing
+set incsearch
+
+
