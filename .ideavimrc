@@ -1,22 +1,73 @@
-" sync Vim clipboard with OS clipboard
-set clipboard^=unnamed,unnamedplus
+" leader key
+let mapleader = ' '
 
-" jump between angle brackets
-set matchpairs+=<:>
+set NERDTree
+set idearefactormode=keep
 
-" highlight search results
+" --- Leader & basic behaviour ---
+let mapleader = " "
+set relativenumber
+set number
 set hlsearch
-
-" remove search highlights
-nnoremap <Esc> :nohlsearch<cr>
-
-" case-insensitive search
-set ignorecase
-
-" enable case-sensitive search when uppercased letter is present
-set smartcase
-
-" search while typing
 set incsearch
+set ignorecase
+set smartcase
+set scrolloff=5
+set clipboard=unnamedplus
+set ideajoin
+set idearelativenumber
 
+" --- Plugins bundled with IdeaVim ---
+set surround
+set commentary
+set highlightedyank
+set matchit
+set multiple-cursors
+set ideamarks
 
+" --- Clear search highlight ---
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Yank to end of line
+nnoremap Y y$
+
+" --- Window navigation (same as Zed) ---
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" --- Files / navigation ---
+nnoremap <leader>f <Action>(GotoFile)
+nnoremap <leader>p <Action>(SearchEverywhere)
+nnoremap <leader>o <Action>(RecentFiles)
+nnoremap <leader>b <Action>(Switcher)
+nnoremap <leader>e <Action>(ActivateProjectToolWindow)
+nnoremap <leader>t <Action>(ActivateTerminalToolWindow)
+nnoremap <leader>/ <Action>(FindInPath)
+
+" --- Code navigation ---
+nmap gd <Action>(GotoDeclaration)
+nmap <leader>gd <Action>(GotoDeclaration)
+nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gt <Action>(GotoTypeDeclaration)
+nmap <leader>gr <Action>(FindUsages)
+nmap <leader>gu <Action>(ShowUsages)
+nmap K <Action>(QuickJavaDoc)
+nmap <leader>h <Action>(Back)
+nmap <leader>l <Action>(Forward)
+
+" --- Errors ---
+nmap ]d <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
+
+" --- Refactoring ---
+nmap <leader>r <Action>(RenameElement)
+nmap <leader>ca <Action>(ShowIntentionActions)
+nmap <leader>cf <Action>(ReformatCode)
+nmap <leader>s <Action>(SaveAll)
+
+" --- Run / Debug ---
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>rc <Action>(ChooseRunConfiguration)
+nmap <leader>dc <Action>(ChooseDebugConfiguration)
