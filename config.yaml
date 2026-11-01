@@ -1,0 +1,64 @@
+# ~/.config/workmux/config.yaml — global workmux defaults (Pi as the main agent)
+# Project-level overrides live in <repo>/.workmux.yaml (see workmux/project.workmux.yaml).
+
+# ── Agent ──────────────────────────────────────────────────────────────────
+agent: pi                     # what <agent> resolves to in pane layouts
+
+# ── Git ────────────────────────────────────────────────────────────────────
+base_branch: auto             # every task starts from main/master, not from the branch you're on
+merge_strategy: rebase        # linear history on `workmux merge`
+merge_keep: false             # merge removes worktree + window + branch (use --keep to verify first)
+
+# ── Naming / placement ─────────────────────────────────────────────────────
+window_prefix: "wm-"          # tmux windows are named wm-<task>
+window_placement: after_current
+# worktree_dir: "~/.workmux/{project}"   # uncomment to keep all worktrees under one root
+nerdfont: false               # set true if your terminal uses a Nerd Font
+
+# ── Layout: Pi on the left, a shell on the right ──────────────────────────
+panes:
+  - command: <agent>
+    focus: true
+  - split: horizontal
+    percentage: 35
+
+# Pick another layout per task:  workmux add my-task -l <name>
+layouts:
+  solo:                       # agent only, full window
+    panes:
+      - command: <agent>
+        focus: true
+  dev:                        # agent + shell + lazygit
+    panes:
+      - command: <agent>
+        focus: true
+      - split: horizontal
+        percentage: 40
+      - command: lazygit
+        split: vertical
+        percentage: 50
+
+# ── Agent status icons (in tmux window names) ─────────────────────────────
+# Note: Pi has no "waiting" state; you will see working and done.
+status_icons:
+  working: "🤖"
+  waiting: "💬"
+  done: "✅"
+status_format: false          # tmux.conf already renders #{@workmux_status} in the window list
+
+# ── Branch names generated from your prompt (workmux add -A) ──────────────
+# With agent: pi, workmux runs `pi -p` for this, which uses your default Pi model
+# (and your tokens). Use a cheap default model, or set auto_name.command explicitly.
+auto_name:
+  background: true
+
+# ── Sidebar (prefix T) ─────────────────────────────────────────────────────
+sidebar:
+  position: left
+  width: 32
+  layout: tiles
+
+# ── Sandbox (optional, recommended before using YOLO modes) ───────────────
+# Runs agents in a container, away from ~/.ssh, ~/.aws, etc. Needs Docker/Podman.
+# sandbox:
+#   enabled: true

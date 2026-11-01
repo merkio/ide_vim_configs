@@ -1,0 +1,26 @@
+# <repo>/.workmux.yaml — copy into a project root:  cp project.workmux.yaml /path/to/repo/.workmux.yaml
+# Everything here overrides ~/.config/workmux/config.yaml. Delete what you don't need.
+
+# Files that are gitignored but needed in every new worktree.
+# copy = independent copy per worktree, symlink = shared (fast, but must be identical across branches).
+files:
+  copy:
+    - .env                    # NOTE: duplicates secrets into every worktree directory
+  # symlink:
+  #   - .next/cache           # share build caches, NOT node_modules unless deps never differ
+
+# Runs BEFORE the tmux window opens (keep it fast). Heavy installs belong in a pane command.
+# post_create:
+#   - direnv allow
+
+# Runs before `workmux merge`; a failure aborts the merge.
+# pre_merge:
+#   - npm test
+
+# Example Node project: install in a pane so the agent starts immediately.
+panes:
+  - command: <agent>
+    focus: true
+  - command: npm install && npm run dev
+    split: horizontal
+    percentage: 35

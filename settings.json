@@ -1,0 +1,14 @@
+{
+  "$schema": "https://pi.dev/schemas/settings.schema.json",
+  "defaultProvider": "anthropic",
+  "defaultThinkingLevel": "medium",
+  "enableInstallTelemetry": false,
+  "warnings": {
+    "anthropicExtraUsage": true
+  },
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3
+  },
+  "lastChangelogVersion": "1.4.0"
+}
